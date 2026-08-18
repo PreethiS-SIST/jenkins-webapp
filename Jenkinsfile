@@ -15,5 +15,13 @@ pipeline {
                 sh 'cp target/*.war /opt/tomcat/apache-tomcat-10.1.57/webapps/'
             }
         }
+
+        stage('Use Secret') {
+            steps {
+                withCredentials([string(credentialsId: 'demo-secret', variable: 'MY_SECRET')]) {
+                    sh 'echo "Secret credential is available"'
+                }
+            }
+        }
     }
 }
